@@ -37,7 +37,7 @@ class DashboardPage extends StatelessWidget {
             ]),
             const SizedBox(height: 20),
             TextFormField(
-              textInputAction: TextInputAction.go,
+              textInputAction: TextInputAction.done,
               onChanged: null,
               decoration: InputDecoration(
                 hintText: "eg. Maroon 5",
@@ -79,15 +79,19 @@ class DashboardPage extends StatelessWidget {
                 builder: (context, state) {
                   return state is DashboardLoaded &&
                           state.musics?.results != null
-                      ? ListView.builder(
-                          itemCount: state.musics?.results.length,
-                          itemBuilder: (context, index) {
-                            return musicCard(
-                                state.musics!.results[index],
-                                () => bloc.add(
-                                    PlayMusic(state.musics!.results[index])));
-                          })
-                      : const CircularProgressIndicator();
+                      ? RefreshIndicator(
+                          onRefresh: () async => bloc.add(GetMusics()),
+                          child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: state.musics?.results.length,
+                              itemBuilder: (context, index) {
+                                return musicCard(
+                                    state.musics!.results[index],
+                                    () => bloc.add(PlayMusic(
+                                        state.musics!.results[index])));
+                              }),
+                        )
+                      : const Center(child: CircularProgressIndicator());
                 },
               ),
             )

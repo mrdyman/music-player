@@ -10,6 +10,7 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardInitial()) {
     on<GetMusics>((event, emit) async {
+      emit(DashboardLoading());
       Music? music = await getMusics();
       emit(DashboardLoaded(music));
     });
