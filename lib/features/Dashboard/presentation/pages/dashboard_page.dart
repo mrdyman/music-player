@@ -34,15 +34,42 @@ class DashboardPage extends StatelessWidget {
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ],
               ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.circular(15),
-                      color: Colors.grey[200]),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.search),
-                  )),
             ]),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.go,
+              onChanged: null,
+              decoration: InputDecoration(
+                hintText: "eg. Maroon 5",
+                errorStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                helperMaxLines: 2,
+                hintStyle: TextStyle(color: Theme.of(context).hintColor),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                ),
+                constraints: const BoxConstraints(maxHeight: double.infinity),
+                suffixIcon: const Padding(
+                  padding: EdgeInsets.only(right: 18),
+                  child: Icon(Icons.search),
+                ),
+                suffixIconConstraints: const BoxConstraints(
+                  minHeight: 12,
+                  minWidth: 12,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor.withAlpha(0),
+                  ),
+                ),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 25, bottom: 15),
               child: Text('Tracks', style: TextStyle(fontSize: 15)),
