@@ -30,7 +30,13 @@ Padding musicCard(Result data, Function() onTap) {
                     data.trackName,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(data.artistName),
+                  SizedBox(
+                    width: 250,
+                    child: Text(
+                      data.artistName,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ],
               ),
             )
