@@ -20,7 +20,7 @@ class DioClient {
       maxWidth: 90,
     ));
 
-  Future<Music?> getMusic() async {
+  Future<Music?> getMusic({String? title, String? artist}) async {
     Music? music;
     try {
       Response response = await _dio.get("/search",
@@ -28,7 +28,7 @@ class DioClient {
             headers: {"Accept": "application/json"},
           ),
           queryParameters: {
-            "term": "lyodra",
+            "term": artist ?? "lyodra",
             "media": "music",
             "country": "id",
             "limit": 10,
