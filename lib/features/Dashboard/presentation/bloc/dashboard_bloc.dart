@@ -1,8 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:music_player/api/dio_client.dart';
 import 'package:music_player/features/Dashboard/data/models/music_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';
@@ -10,7 +9,9 @@ part 'dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardInitial()) {
     on<GetMusics>((event, emit) async {
-      Music? music = await getMusics();
+      emit(DashboardLoading());
+      Music? music =
+          await getMusics(keyword: event.keyword == "" ? null : event.keyword);
       emit(DashboardLoaded(music));
     });
 
@@ -19,9 +20,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     });
   }
 
-  Future<Music?> getMusics() async {
+  Future<Music?> getMusics({String? keyword}) async {
     Music? musics;
-    musics = await DioClient().getMusic();
+    musics = await DioClient().getMusic(keyword: keyword);
     return musics;
   }
 

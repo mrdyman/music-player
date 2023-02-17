@@ -9,3 +9,5 @@ class DashboardLoaded extends DashboardState {
   final Music? musics;
   DashboardLoaded(this.musics);
 }
+
+class DashboardLoading extends DashboardState {}

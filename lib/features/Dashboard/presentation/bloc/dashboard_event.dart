@@ -3,7 +3,10 @@ part of 'dashboard_bloc.dart';
 @immutable
 abstract class DashboardEvent {}
 
-class GetMusics extends DashboardEvent {}
+class GetMusics extends DashboardEvent {
+  final String? keyword;
+  GetMusics({this.keyword});
+}
 
 class SearchMusic extends DashboardEvent {}
 

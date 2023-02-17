@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:music_player/features/Dashboard/presentation/bloc/dashboard_bloc.dart';
+import 'package:music_player/features/Player/presentation/bloc/player_bloc.dart';
+import 'package:music_player/features/Player/presentation/pages/player_page.dart';
 import '../widgets/music_card.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -34,15 +36,42 @@ class DashboardPage extends StatelessWidget {
                           TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                 ],
               ),
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadiusDirectional.circular(15),
-                      color: Colors.grey[200]),
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Icon(Icons.search),
-                  )),
             ]),
+            const SizedBox(height: 20),
+            TextFormField(
+              textInputAction: TextInputAction.done,
+              onChanged: (value) => bloc.add(GetMusics(keyword: value)),
+              decoration: InputDecoration(
+                hintText: "eg. Maroon 5",
+                errorStyle: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                helperMaxLines: 2,
+                hintStyle: TextStyle(color: Theme.of(context).hintColor),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                ),
+                constraints: const BoxConstraints(maxHeight: double.infinity),
+                suffixIcon: const Padding(
+                  padding: EdgeInsets.only(right: 18),
+                  child: Icon(Icons.search),
+                ),
+                suffixIconConstraints: const BoxConstraints(
+                  minHeight: 12,
+                  minWidth: 12,
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).primaryColor.withAlpha(0),
+                  ),
+                ),
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+              ),
+            ),
             const Padding(
               padding: EdgeInsets.only(top: 25, bottom: 15),
               child: Text('Tracks', style: TextStyle(fontSize: 15)),
@@ -52,15 +81,28 @@ class DashboardPage extends StatelessWidget {
                 builder: (context, state) {
                   return state is DashboardLoaded &&
                           state.musics?.results != null
-                      ? ListView.builder(
-                          itemCount: state.musics?.results.length,
-                          itemBuilder: (context, index) {
-                            return musicCard(
-                                state.musics!.results[index],
-                                () => bloc.add(
-                                    PlayMusic(state.musics!.results[index])));
-                          })
-                      : const CircularProgressIndicator();
+                      ? RefreshIndicator(
+                          onRefresh: () async => bloc.add(GetMusics()),
+                          child: ListView.builder(
+                              physics: const BouncingScrollPhysics(),
+                              itemCount: state.musics?.results.length,
+                              itemBuilder: (context, index) {
+                                return musicCard(
+                                    state.musics!.results[index],
+                                    () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                BlocProvider<PlayerBloc>(
+                                                  create: (context) =>
+                                                      PlayerBloc(),
+                                                  child: PlayerPage(
+                                                      musicData: state.musics!
+                                                          .results[index]),
+                                                ))));
+                              }),
+                        )
+                      : const Center(child: CircularProgressIndicator());
                 },
               ),
             )
