@@ -1,16 +1,26 @@
-# music_player
+# Music Player with iTunes API
 
-A new Flutter project.
+This App is a simple music player using iTunes API with BLoC State Management.
 
-## Getting Started
+## Features :
+- Play / Pause / Resume and Stop Song
+- Seek Forward
+- Seek Backward
+- Search by Song title or Artist name
 
-This project is a starting point for a Flutter application.
+## How To Use :
+- Open App
+- Search Song / Artist want to play
+- Press Play Button
 
-A few resources to get you started if this is your first Flutter project:
+## How to run project
+- Clone project
+- Open in Text Editor (ex. VSCode)
+- Select Device to run (ex. Chrome, or Real Device)
+- Hit Run(Play Icon) to run project
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshoots
+<img src="https://user-images.githubusercontent.com/55882627/219600955-99193db7-48a5-4c61-99a0-e45055182dac.png" width=30% height=30%> <img src="https://user-images.githubusercontent.com/55882627/219600970-fc796a39-d9dd-4fb0-aace-673d3c1429b6.png" width=30% height=30%>
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+https://user-images.githubusercontent.com/55882627/219601706-26466678-2ebd-4081-8a60-d5692d0012ac.mp4
