@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'player_event.dart';
 part 'player_state.dart';
