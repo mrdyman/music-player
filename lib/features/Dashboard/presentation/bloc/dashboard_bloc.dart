@@ -11,7 +11,8 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(DashboardInitial()) {
     on<GetMusics>((event, emit) async {
       emit(DashboardLoading());
-      Music? music = await getMusics();
+      Music? music =
+          await getMusics(keyword: event.keyword == "" ? null : event.keyword);
       emit(DashboardLoaded(music));
     });
 
@@ -20,9 +21,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     });
   }
 
-  Future<Music?> getMusics() async {
+  Future<Music?> getMusics({String? keyword}) async {
     Music? musics;
-    musics = await DioClient().getMusic();
+    musics = await DioClient().getMusic(keyword: keyword);
     return musics;
   }
 

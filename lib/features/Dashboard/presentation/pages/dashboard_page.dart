@@ -40,7 +40,7 @@ class DashboardPage extends StatelessWidget {
             const SizedBox(height: 20),
             TextFormField(
               textInputAction: TextInputAction.done,
-              onChanged: null,
+              onChanged: (value) => bloc.add(GetMusics(keyword: value)),
               decoration: InputDecoration(
                 hintText: "eg. Maroon 5",
                 errorStyle: TextStyle(
